@@ -10,8 +10,8 @@
         <label for="password" class="text-white">Пароль:</label>
         <input type="password" id="password" v-model="password" class="form-input" />
       </div>
-      <button class="form-button" @click="login">Войти</button>
-      <button class="form-button" @click="register">Регистрация</button>
+      <button class="form-button"> <RouterLink to="#" class="underline"> Войти </RouterLink> </button>
+      <button class="form-button"> <RouterLink to="signup" class="underline"> Регистрация </RouterLink> </button>
     </form>
   </div>
 </template>
