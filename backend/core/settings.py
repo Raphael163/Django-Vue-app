@@ -44,6 +44,11 @@ CSRF_TRUSTED_ORIGINS = [
     "http://127.0.0.1:5173",
 ]
 
+# ___   ___  ___  ____
+# / _ | / _ \/ _ \/ __/
+# / __ |/ ___/ ___/\ \`
+# /_/ |_/_/  /_/  /___/
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -56,6 +61,11 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'corsheaders',
 ]
+
+# __  __________  ___  __   _____      _____   ___  ____
+# /  |/  /  _/ _ \/ _ \/ /  / __/ | /| / / _ | / _ \/ __/
+# / /|_/ // // // / // / /__/ _/ | |/ |/ / __ |/ , _/ _/
+# /_/  /_/___/____/____/____/___/ |__/|__/_/ |_/_/|_/___/
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
