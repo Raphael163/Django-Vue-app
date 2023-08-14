@@ -6,6 +6,7 @@ from django.utils import timezone
 
 
 class CustomUserManager(UserManager):
+    """кастомный менеджер для модели пользователя"""
     def _create_user(self, name, email, password, **extra_fields):
         if not email:
             raise ValueError("You have not provided a valid e-mail address")
@@ -29,6 +30,7 @@ class CustomUserManager(UserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
+    """ Модель пользователя"""
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     email = models.EmailField(unique=True)
     name = models.CharField(max_length=255, blank=True, default='')
