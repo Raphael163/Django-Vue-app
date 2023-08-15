@@ -1,26 +1,56 @@
 <template>
-  <div class="registration-form">
-    <h2 class="text-3xl font-bold text-white mb-4">Регистрация</h2>
-    <form>
-      <div class="mb-6">
-        <label for="name" class="text-white">Имя:</label>
-        <input type="text" id="name" v-model="name" class="form-input" />
-      </div>
-      <div class="mb-6">
-        <label for="email" class="text-white">Email:</label>
-        <input type="email" id="email" v-model="email" class="form-input" />
-      </div>
-      <div class="mb-6">
-        <label for="password" class="text-white">Пароль:</label>
-        <input type="password" id="password" v-model="password" class="form-input" />
-      </div>
-      <div class="mb-6">
-        <label for="confirmPassword" class="text-white">Подтверждение пароля:</label>
-        <input type="password" id="confirmPassword" v-model="confirmPassword" class="form-input" />
-      </div>
-      <button class="form-button" @click="register">Зарегистрироваться</button>
-    </form>
-  </div>
+    <div class="max-w-7xl mx-auto grid grid-cols-2 gap-4">
+        <div class="main-left">
+            <div class="p-12 bg-white border border-gray-200 rounded-lg">
+                <h1 class="mb-6 text-2xl">Sign up</h1>
+
+                <p class="mb-6 text-gray-500">
+                    Lorem ipsum dolor sit mate. Lorem ipsum dolor sit mate. Lorem ipsum dolor sit mate.
+                    Lorem ipsum dolor sit mate. Lorem ipsum dolor sit mate. Lorem ipsum dolor sit mate.
+                </p>
+
+                <p class="font-bold">
+                    Already have an account? <RouterLink :to="{'name': 'login'}" class="underline">Click here</RouterLink> to log in!
+                </p>
+            </div>
+        </div>
+
+        <div class="main-right">
+            <div class="p-12 bg-white border border-gray-200 rounded-lg">
+                <form class="space-y-6" v-on:submit.prevent="submitForm">
+                    <div>
+                        <label>Name</label><br>
+                        <input type="text" v-model="form.name" placeholder="Your full name" class="w-full mt-2 py-4 px-6 border border-gray-200 rounded-lg">
+                    </div>
+
+                    <div>
+                        <label>E-mail</label><br>
+                        <input type="email" v-model="form.email" placeholder="Your e-mail address" class="w-full mt-2 py-4 px-6 border border-gray-200 rounded-lg">
+                    </div>
+
+                    <div>
+                        <label>Password</label><br>
+                        <input type="password" v-model="form.password1" placeholder="Your password" class="w-full mt-2 py-4 px-6 border border-gray-200 rounded-lg">
+                    </div>
+
+                    <div>
+                        <label>Repeat password</label><br>
+                        <input type="password" v-model="form.password2" placeholder="Repeat your password" class="w-full mt-2 py-4 px-6 border border-gray-200 rounded-lg">
+                    </div>
+
+                    <template v-if="errors.length > 0">
+                        <div class="bg-red-300 text-white rounded-lg p-6">
+                            <p v-for="error in errors" v-bind:key="error">{{ error }}</p>
+                        </div>
+                    </template>
+
+                    <div>
+                        <button class="py-4 px-6 bg-purple-600 text-white rounded-lg">Sign up</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -40,15 +70,16 @@ export default {
     data() {
         return {
             form: {
-                name: '',
                 email: '',
+                name: '',
                 password1: '',
                 password2: ''
             },
             errors: [],
         }
     },
-      methods: {
+
+    methods: {
         submitForm() {
             this.errors = []
 
@@ -75,8 +106,8 @@ export default {
                         if (response.data.message === 'success') {
                             this.toastStore.showToast(5000, 'The user is registered. Please log in', 'bg-emerald-500')
 
-                            this.form.name = ''
                             this.form.email = ''
+                            this.form.name = ''
                             this.form.password1 = ''
                             this.form.password2 = ''
                         } else {
@@ -91,33 +122,3 @@ export default {
     }
 }
 </script>
-
-<style scoped>
-.registration-form {
-  @apply max-w-md mx-auto p-8 bg-gray-800 rounded-lg shadow-lg;
-}
-
-.form-title {
-  @apply text-center mb-6 text-3xl font-bold text-white;
-}
-
-.form-group {
-  @apply mb-6;
-}
-
-label {
-  @apply text-white;
-}
-
-.form-input {
-  @apply w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded text-white;
-}
-
-.form-button {
-  @apply w-full px-4 py-2 mt-6 text-white bg-blue-500 rounded cursor-pointer transition-colors duration-300;
-}
-
-.form-button:hover {
-  @apply bg-blue-600;
-}
-</style>
