@@ -56,7 +56,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # my app
     'account',
+    'post',
+    # framework library
     'rest_framework',
     'rest_framework_simplejwt',
     'corsheaders',
