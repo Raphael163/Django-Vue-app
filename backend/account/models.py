@@ -23,17 +23,23 @@ class CustomUserManager(UserManager):
         extra_fields.setdefault('is_superuser', False)
         return self._create_user(name, email, password, **extra_fields)
 
-    def create_superuser(self, name=None, email=None, password=None, **extra_fields):
+    def create_superuser(self, email, password, **extra_fields):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
-        return self._create_user(name, email, password, **extra_fields)
+
+        if extra_fields.get('is_staff') is not True:
+            raise ValueError('Superuser must have is_staff=True.')
+        if extra_fields.get('is_superuser') is not True:
+            raise ValueError('Superuser must have is_superuser=True.')
+
+        return self._create_user(email=email, name="Superuser", password=password, **extra_fields)
 
 
 class User(AbstractBaseUser, PermissionsMixin):
     """ Модель пользователя"""
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     email = models.EmailField(unique=True)
-    name = models.CharField(max_length=255, blank=True, default='')
+    name = models.CharField(max_length=255, blank=False, null=False, default='')
     avatar = models.ImageField(upload_to='avatars', blank=True, null=True)
 
     is_active = models.BooleanField(default=True)
@@ -41,7 +47,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
 
     date_joined = models.DateTimeField(default=timezone.now)
-    last_login = models.DateTimeField(blank=True, null=True)
+    last_login = models.DateTimeField(blank=True, null=False)
 
     objects = CustomUserManager()
 
